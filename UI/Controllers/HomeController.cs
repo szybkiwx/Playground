@@ -26,6 +26,7 @@ namespace Playground.UI.Controllers
         public ActionResult ListTags()
         {
             AutoMapper.Mapper.CreateMap<Tag, TagVM>();
+            //    .ForMember(dst => dst.Count, opt => opt.MapFrom(src => src.Expenses.Count));
             var tags = AutoMapper.Mapper.Map<List<TagVM>>(_context.TagSet);
             return View(tags);
         }
