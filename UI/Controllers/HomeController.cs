@@ -20,15 +20,13 @@ namespace Playground.UI.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult ListTags()
-        {
             AutoMapper.Mapper.CreateMap<Tag, TagVM>();
-            //    .ForMember(dst => dst.Count, opt => opt.MapFrom(src => src.Expenses.Count));
-            var tags = AutoMapper.Mapper.Map<List<TagVM>>(_context.TagSet);
-            return View(tags);
+
+            var tags = AutoMapper.Mapper.Map<List<TagVM>>( _context.TagSet);
+            return View(new HomeVM
+            { 
+                Tags = tags
+            });
         }
 	}
 }

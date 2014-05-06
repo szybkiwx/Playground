@@ -1,4 +1,4 @@
-﻿
+﻿@model Playground.UI.Models.HomeVM
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,10 +9,23 @@
 </div>
 <div class="row">
     <div class="col-sm-4">
-       sadf
+       <ul class="list-group" data-bind="foreach: Tags">
+           <ul class="list-group-item" data-bind="text: TagView"></ul>
+       </ul>
     </div>
     <div class="col-sm-4">
         asdf
     </div>
 
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        var model = ko.applyBindings(@(Json.Encode(Model) ));
+        model.Tags = convertToObservable(model.Tags, function (obj) {
+            obj.TagView = ko.computed(function () {
+                return obj.Name + "(" + obj.ExpenseCount + ")";
+            });
+        });
+    });
+</script>

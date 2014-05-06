@@ -23,8 +23,8 @@ namespace Playground.Data
             modelBuilder.Entity<Tag>()
             .HasMany(tag => tag.Expenses)
             .WithMany(exp => exp.Tags)
-            .Map(m => m.MapLeftKey("Id")
-            .MapRightKey("Id")
+            .Map(m => m.MapLeftKey("TagId")
+            .MapRightKey("ExpenseId")
             .ToTable("TagToExpense"));
         }
     }
