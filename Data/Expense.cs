@@ -9,7 +9,10 @@ namespace Playground.Data
     public class Expense
     {
         public int Id { get; set; }
-        public List<Tag> Tags { get; set; }
+        public string Name { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime Date { get; set; }
+        public virtual List<Tag> Tags { get; set; }
 
         public Expense()
         {

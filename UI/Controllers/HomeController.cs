@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Playground.UI.Controllers
 {
@@ -20,12 +21,16 @@ namespace Playground.UI.Controllers
 
         public ActionResult Index()
         {
-            AutoMapper.Mapper.CreateMap<Tag, TagVM>();
+            AutoMapper.Mapper.CreateMap<Tag, TagVM>()
+                .ForMember(dst => dst.ExpensesCount, opt => opt.MapFrom(src => src.Expenses.Count));
+            var tags = _context.TagSet.Include(x => x.Expenses);
 
-            var tags = AutoMapper.Mapper.Map<List<TagVM>>( _context.TagSet);
+            var sql = tags.ToString();
+
+            var tagModels = AutoMapper.Mapper.Map<List<TagVM>>(tags);
             return View(new HomeVM
-            { 
-                Tags = tags
+            {
+                Tags = tagModels
             });
         }
 	}
